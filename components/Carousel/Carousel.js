@@ -79,6 +79,9 @@ function hideImg() {
 
 function showImg() {
   carouselImages[currentIndex].style.display = 'block';
+  TweenMax.from(carouselImages[currentIndex], 1, {
+    opacity: 0
+  });
 }
 
 document.querySelector('.carousel-container').appendChild(Carousel());
