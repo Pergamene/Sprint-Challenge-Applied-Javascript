@@ -43,7 +43,9 @@ An event is a way for a user to interact with the site, such as a ‘click’, o
 3. What is an event listener?
 
 ```
-An event listener is something we can attach to a page element to listen for a certain type of event so it can respond to the users input, such as the submit button on a form waiting to be clicked.
+An event listener is something we can attach to a page element to listen for a certain type 
+of event so it can respond to the users input, such as the submit button on a form waiting 
+to be clicked.
 ```
 
 4. Why would we convert a NodeList into an Array?
