@@ -24,7 +24,22 @@ function Tabs() {
 function Tab(topic) {
   const topicDiv = document.createElement('div');
   topicDiv.classList.add('tab');
+  topicDiv.setAttribute('data', topic);
   topicDiv.textContent = topic;
+
+  topicDiv.addEventListener('click', () => {
+    let cards = document.querySelectorAll('.card');
+    console.log(`TOPIC: ${topic}`);
+    cards.forEach(card => {
+      console.log(card);
+      console.log(card.dataset.topic);
+      if (card.dataset.topic === topic) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    })
+  });
 
   return topicDiv;
 }

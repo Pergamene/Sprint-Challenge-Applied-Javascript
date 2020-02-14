@@ -24,7 +24,7 @@ function Cards() {
       console.log(response);
       for (key in response.data.articles) {
         for (article of response.data.articles[key]) {          
-          cardsContainer.appendChild(Card(article));
+          cardsContainer.appendChild(Card(article, key));
         }
       }
     })
@@ -33,9 +33,14 @@ function Cards() {
     });
 }
 
-function Card(article) {
+function Card(article, key) {
   const card = document.createElement('div');
   card.classList.add('card');
+  if (key === 'node') {
+    card.setAttribute('data-topic', 'node.js');
+  } else {
+    card.setAttribute('data-topic', key);
+  }
 
   const headline = document.createElement('div');
   headline.classList.add('headline');
