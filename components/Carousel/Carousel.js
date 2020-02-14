@@ -17,3 +17,55 @@
     <div class="right-button"> > </div>
   </div>
 */
+
+const imgPaths = ['./assets/carousel/mountains.jpeg', './assets/carousel/computer.jpeg', './assets/carousel/trees.jpeg', './assets/carousel/turntable.jpeg'];
+let currentIndex = 0;
+
+function Carousel() {
+  const carousel = document.createElement('div');
+  carousel.classList.add('carousel');
+
+  carousel.appendChild(createBtnElement('left'));
+
+  for (path of imgPaths) {
+    carousel.appendChild(createImageElement(path));
+  }
+
+  carousel.appendChild(createBtnElement('right'));
+
+  return carousel;
+}
+
+function createBtnElement(direction) {
+  const btn = document.createElement('div');
+  btn.classList.add(`${direction}-button`);
+  btn.textContent = (direction === 'left') ? '<' : '>';
+
+  btn.addEventListener('click', event => {
+    console.log(event);
+  });
+
+  return btn;
+}
+
+function createImageElement(path) {
+  const img = document.createElement('img');
+  img.classList.add(currentIndex++);
+  img.setAttribute('src', path);
+
+  currentIndex = 0;
+  return img;
+}
+
+function changeIndex(arrow) {
+  if (arrow === '<') {
+    currentIndex--;
+    if (currentIndex === -1) {
+      currentIndex = 3;
+    }
+  } else {
+    currentIndex = currentIndex % 4;
+  }
+}
+
+document.querySelector('.carousel-container').appendChild(Carousel());
