@@ -19,8 +19,11 @@
 */
 
 const imgPaths = ['./assets/carousel/mountains.jpeg', './assets/carousel/computer.jpeg', './assets/carousel/trees.jpeg', './assets/carousel/turntable.jpeg'];
-let currentIndex = 0;
 let carouselImages = [];
+let interval = 10000;
+let currentIndex = 0;
+
+let intervalID;
 
 function Carousel() {
   const carousel = document.createElement('div');
@@ -33,8 +36,7 @@ function Carousel() {
   }
   
   carousel.appendChild(createBtnElement('right'));
-  
-  currentIndex = 0;
+
   carouselImages[currentIndex].style.display = 'block';
   
   return carousel;
@@ -46,9 +48,7 @@ function createBtnElement(direction) {
   btn.textContent = (direction === 'left') ? '<' : '>';
 
   btn.addEventListener('click', event => {
-    hideImg();
-    changeIndex(event.target.textContent);
-    showImg();
+    changeImg(event.target.textContent);
   });
 
   return btn;
@@ -62,7 +62,9 @@ function createImageElement(path) {
   return img;
 }
 
-function changeIndex(arrow) {
+function changeImg(arrow) {
+  window.clearInterval(intervalID);
+  hideImg();
   if (arrow === '<') {
     currentIndex--;
     if (currentIndex === -1) {
@@ -71,6 +73,8 @@ function changeIndex(arrow) {
   } else {
     currentIndex = ++currentIndex % 4;
   }
+  showImg();
+  intervalID = window.setInterval(changeImg, interval, ['>']);
 }
 
 function hideImg() {
@@ -79,9 +83,11 @@ function hideImg() {
 
 function showImg() {
   carouselImages[currentIndex].style.display = 'block';
-  TweenMax.from(carouselImages[currentIndex], 1, {
+  carouselImages[currentIndex].style['z-index'] = -1;
+  TweenMax.from(carouselImages[currentIndex], 2, {
     opacity: 0
   });
 }
 
 document.querySelector('.carousel-container').appendChild(Carousel());
+intervalID = window.setInterval(changeImg, interval, ['>']);

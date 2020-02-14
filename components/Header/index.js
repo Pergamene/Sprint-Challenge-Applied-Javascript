@@ -14,7 +14,7 @@ function Header() {
 
   const date = document.createElement('span');
   date.classList.add('date');
-  date.textContent = 'MARCH 28, 2019';
+  date.textContent = 'SMARCH 28, 2019';
   header.appendChild(date);
 
   const title = document.createElement('h1');
@@ -27,7 +27,6 @@ function Header() {
   header.appendChild(temp);
 
   return header;
-
 }
 
 document.querySelector('.header-container').appendChild(Header());
