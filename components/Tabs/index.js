@@ -29,10 +29,7 @@ function Tab(topic) {
 
   topicDiv.addEventListener('click', () => {
     let cards = document.querySelectorAll('.card');
-    console.log(`TOPIC: ${topic}`);
     cards.forEach(card => {
-      console.log(card);
-      console.log(card.dataset.topic);
       if (card.dataset.topic === topic) {
         card.style.display = 'block';
       } else {
