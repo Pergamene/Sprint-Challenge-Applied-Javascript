@@ -20,6 +20,7 @@
 
 const imgPaths = ['./assets/carousel/mountains.jpeg', './assets/carousel/computer.jpeg', './assets/carousel/trees.jpeg', './assets/carousel/turntable.jpeg'];
 let currentIndex = 0;
+let carouselImages = [];
 
 function Carousel() {
   const carousel = document.createElement('div');
@@ -30,9 +31,12 @@ function Carousel() {
   for (path of imgPaths) {
     carousel.appendChild(createImageElement(path));
   }
-
+  
   carousel.appendChild(createBtnElement('right'));
-
+  
+  currentIndex = 0;
+  carouselImages[currentIndex].style.display = 'block';
+  
   return carousel;
 }
 
@@ -42,7 +46,9 @@ function createBtnElement(direction) {
   btn.textContent = (direction === 'left') ? '<' : '>';
 
   btn.addEventListener('click', event => {
-    console.log(event);
+    hideImg();
+    changeIndex(event.target.textContent);
+    showImg();
   });
 
   return btn;
@@ -50,10 +56,9 @@ function createBtnElement(direction) {
 
 function createImageElement(path) {
   const img = document.createElement('img');
-  img.classList.add(currentIndex++);
   img.setAttribute('src', path);
+  carouselImages.push(img);
 
-  currentIndex = 0;
   return img;
 }
 
@@ -64,8 +69,16 @@ function changeIndex(arrow) {
       currentIndex = 3;
     }
   } else {
-    currentIndex = currentIndex % 4;
+    currentIndex = ++currentIndex % 4;
   }
+}
+
+function hideImg() {
+  carouselImages[currentIndex].style.display = 'none';
+}
+
+function showImg() {
+  carouselImages[currentIndex].style.display = 'block';
 }
 
 document.querySelector('.carousel-container').appendChild(Carousel());
